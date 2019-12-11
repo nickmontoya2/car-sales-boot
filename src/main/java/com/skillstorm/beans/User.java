@@ -23,12 +23,16 @@ public class User {
 	@Column(name = "USER_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	@Column(name = "NAME")
 	private String name;
+	
 	@Column(name = "USERNAME")
 	private String username;
+	
 	@Column(name = "PASSWORD")
 	private String password;
+	
 	@Column(name = "USER_BALANCE")
 	private int balance;
 	
