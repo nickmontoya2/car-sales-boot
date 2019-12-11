@@ -2,6 +2,7 @@ package com.skillstorm.controllers;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,7 @@ import com.skillstorm.service.CarService;
 @RequestMapping(value = "/cars") // Every URI that starts with /cars comes here
 public class CarController {
 
-	// Need to autowire CarService into here
+	@Autowired
 	private CarService carService;
 	
 	// Method to return all cars in DB
