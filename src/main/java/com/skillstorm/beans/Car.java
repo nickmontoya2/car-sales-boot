@@ -1,5 +1,7 @@
 package com.skillstorm.beans;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,9 +12,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "CAR")
@@ -58,5 +62,10 @@ public class Car {
 	@JoinColumn(name = "USER_ID")
 	@JsonBackReference(value = "user-cars")
 	private User owner;
+	
+	// List of transactions this car has been in
+	@OneToMany(mappedBy = "car")
+	@JsonManagedReference(value = "car-transactions")
+	private List<Transaction> transactions;
 	
 }

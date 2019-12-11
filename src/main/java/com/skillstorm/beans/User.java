@@ -29,10 +29,23 @@ public class User {
 	@Column(name = "USER_BALANCE")
 	private int balance;
 	
-	// need to figure out the relations for these lists
-	// private List<Transaction> transactions;
 	@OneToMany(mappedBy = "owner")
 	@JsonManagedReference(value = "user-cars")
 	private List<Car> cars;
+	
+	/*
+	 *  This code is inspired by a similar situation I found on SO
+	 *  relating teams to matches played as home or away
+	 */
+	
+	@OneToMany(mappedBy = "buyer")
+	@JsonManagedReference(value = "user-buyer")
+	private List<Transaction> buyerTransactions;
+	
+	@OneToMany(mappedBy = "seller")
+	@JsonManagedReference(value = "user-seller")
+	private List<Transaction> sellerTransactions;
+	
+	// Make method to return list of all transactions
 	
 }
