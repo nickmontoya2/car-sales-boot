@@ -26,8 +26,8 @@ public class Transaction {
 	private Date date;
 	
 	// Need to figure out relations for all of these
-	private int buyerId;
-	private int sellerId;
-	private int carId;
+	// private int buyerId;
+	// private int sellerId;
+	// private Car car;
 	
 }

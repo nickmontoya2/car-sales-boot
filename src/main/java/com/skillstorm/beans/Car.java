@@ -4,10 +4,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "CAR")
@@ -31,7 +36,7 @@ public class Car {
 	@Column(name = "FUEL")
 	private String fuel;
 	@Column(name = "EXTERIOR_COLOR")
-	private String exterioColor;
+	private String exteriorColor;
 	@Column(name = "INTERIOR_COLOR")
 	private String interiorColor;
 	@Column(name = "TRANSMISSION")
@@ -49,6 +54,9 @@ public class Car {
 	private String photoLink;
 	
 	// foreign-key to user table
-	// private int ownerId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_ID")
+	@JsonBackReference(value = "user-cars")
+	private User owner;
 	
 }

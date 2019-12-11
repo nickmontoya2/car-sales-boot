@@ -7,7 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "USER")
@@ -27,7 +30,9 @@ public class User {
 	private int balance;
 	
 	// need to figure out the relations for these lists
-	// private List<Car> cars;
 	// private List<Transaction> transactions;
+	@OneToMany(mappedBy = "owner")
+	@JsonManagedReference(value = "user-cars")
+	private List<Car> cars;
 	
 }
