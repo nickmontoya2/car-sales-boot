@@ -6,15 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.skillstorm.beans.Car;
+import com.skillstorm.beans.User;
 
 @Repository
-public interface CarRepository extends JpaRepository<Car, Integer> {
+public interface UserRepository extends JpaRepository<User, Integer> {
 
-	@Query("select c from Car c inner join c.owner")
-	public List<Car> findCars();
-	
-	public List<Car> findByOwnerId(int id);
-	
+//	@Query("select u from User u inner join u.cars")
+//	public List<User> findAll();
 	
 }

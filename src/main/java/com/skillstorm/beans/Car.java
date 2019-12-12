@@ -17,10 +17,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "CAR")
+@JsonIgnoreProperties({"handler", "hibernateLazyInitializer"})
 public class Car {
 
 	@Id
@@ -72,7 +74,7 @@ public class Car {
 	private String photoLink;
 	
 	// User who owns this car
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_ID")
 	@JsonBackReference(value = "user-cars")
 	private User owner;
