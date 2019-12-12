@@ -24,4 +24,9 @@ public class CarService {
 		return carRepository.findAll();
 	}
 	
+	public List<Car> findByUserId(int id) {
+		log.info("Finding all cars for userId: " + id);
+		return carRepository.findByOwnerId(id);
+	}
+	
 }

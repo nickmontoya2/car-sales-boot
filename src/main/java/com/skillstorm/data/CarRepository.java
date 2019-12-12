@@ -11,8 +11,8 @@ import com.skillstorm.beans.Car;
 @Repository
 public interface CarRepository extends JpaRepository<Car, Integer> {
 
-	@Query("select c from Car c inner join c.owner")
-	public List<Car> findCars();
+//	@Query("select c from Car c inner join c.owner")
+//	public List<Car> findCars();
 	
 	public List<Car> findByOwnerId(int id);
 	
