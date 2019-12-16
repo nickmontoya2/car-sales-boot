@@ -25,4 +25,6 @@ public class UserController {
 		return new ResponseEntity<List<User>>(userService.findAll(), HttpStatus.OK);
 	}
 	
+	// This class just needs a login method
+	
 }
