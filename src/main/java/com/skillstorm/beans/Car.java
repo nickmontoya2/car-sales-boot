@@ -83,11 +83,34 @@ public class Car {
 	@OneToMany(mappedBy = "car")
 	@JsonManagedReference(value = "car-transactions")
 	private Set<Transaction> transactions;
-
+	
 	public Car() {
 		super();
 		// Patrick prefers empty lists to start instead of null
 		transactions = new HashSet<>();
+	}
+	
+	// constructor for saving a new car directly from the front end
+	public Car(String make, String model, int year, int value, int mileage, String fuel, String exteriorColor,
+		String interiorColor, String transmission, String engine, String driveType, String description,
+		SalesStatus saleStatus, String photoLink, User owner) {
+	super();
+	this.make = make;
+	this.model = model;
+	this.year = year;
+	this.value = value;
+	this.mileage = mileage;
+	this.fuel = fuel;
+	this.exteriorColor = exteriorColor;
+	this.interiorColor = interiorColor;
+	this.transmission = transmission;
+	this.engine = engine;
+	this.driveType = driveType;
+	this.description = description;
+	this.saleStatus = saleStatus;
+	this.photoLink = photoLink;
+	this.owner = owner;
+	transactions = new HashSet<>();
 	}
 
 	public int getId() {

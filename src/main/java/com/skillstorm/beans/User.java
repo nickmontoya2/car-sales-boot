@@ -13,9 +13,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -34,6 +35,8 @@ public class User {
 	@Column(name = "USERNAME")
 	private String username;
 	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	@Transient
 	@Column(name = "PASSWORD")
 	private String password;
 	

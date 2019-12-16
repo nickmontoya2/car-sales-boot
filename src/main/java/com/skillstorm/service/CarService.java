@@ -38,7 +38,7 @@ public class CarService {
 		if (car.getTransactions() == null || car.getTransactions().isEmpty()) {
 			return carRepository.save(car);
 		} else { // if new car has transactions make sure to save them 
-			log.info("Saving transactions associate with new car");
+			log.info("Saving transactions associated with new car");
 			Car result = carRepository.save(car);
 			
 			for(Transaction tx : car.getTransactions()) {
@@ -53,5 +53,9 @@ public class CarService {
 		// make sure car is valid
 		carRepository.delete(car);
 	} // remove()
+	
+	public void setNewCarStatus(String status, int id) {
+		carRepository.updateCarStatus(status, id);
+	}
 	
 }
