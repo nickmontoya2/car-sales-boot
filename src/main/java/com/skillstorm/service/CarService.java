@@ -59,7 +59,7 @@ public class CarService {
 		// make sure car is valid
 		carRepository.delete(car);
 	} // remove()
-	
+
 	public void setNewCarStatus(String status, int id) {
 		carRepository.updateCarStatus(status, id);
 	}
