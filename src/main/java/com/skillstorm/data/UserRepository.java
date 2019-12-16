@@ -14,4 +14,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 //	@Query("select u from User u inner join u.cars")
 //	public List<User> findAll();
 	
+	@Query("from User where username = ?1 and password = ?2 ")
+	public User findByUsernameAndPass(String username, String password);
+	
 }
