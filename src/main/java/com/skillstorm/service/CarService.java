@@ -54,4 +54,8 @@ public class CarService {
 		carRepository.delete(car);
 	} // remove()
 	
+	public void setNewCarStatus(int id, String status) {
+		carRepository.updateCarStatus(status, id);
+	}
+	
 }

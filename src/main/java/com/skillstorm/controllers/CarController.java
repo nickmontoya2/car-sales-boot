@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skillstorm.beans.Car;
+import com.skillstorm.data.CarRepository;
 import com.skillstorm.service.CarService;
 
 @RestController
@@ -29,6 +31,9 @@ public class CarController {
 
 	@Autowired
 	private CarService carService;
+	
+	@Autowired
+	private CarRepository repository;
 	
 	/*
 	 * Method to return all cars in DB
@@ -63,6 +68,16 @@ public class CarController {
 	@DeleteMapping(value = "/remove/", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Car> remove(@Valid @RequestBody Car car) {
 		carService.remove(car);
+		return new ResponseEntity<Car>(HttpStatus.OK);
+	}
+	
+	@PutMapping(value = "/car/update/{id}/{status}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public ResponseEntity<Car> update(@Valid @PathVariable int id, @Valid @PathVariable String status) {
+		if(!repository.existsById(id)) {
+			return new ResponseEntity<Car>(HttpStatus.BAD_REQUEST);
+		}
+		repository.updateCarStatus(status, id);
 		return new ResponseEntity<Car>(HttpStatus.OK);
 	}
 }
