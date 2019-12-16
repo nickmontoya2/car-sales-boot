@@ -1,6 +1,7 @@
 package com.skillstorm.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -36,8 +37,7 @@ public class CarController {
 	private CarRepository repository;
 	
 	/*
-	 * Method to return all cars in DB
-	 * Change this to only find cars for sale
+	 * Method to return all FOR_SALE cars in DB
 	 */
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Car>> findAllForSale() {
@@ -51,6 +51,19 @@ public class CarController {
 	@GetMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Car>> findByUserId(@PathVariable int id) {
 		return new ResponseEntity<List<Car>>(carService.findByUserId(id), HttpStatus.OK);
+	}
+	
+	/*
+	 * Return specific car
+	 */
+	@GetMapping(value = "/car/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Car> findByCarId(@PathVariable int id) {
+		Optional<Car> opt = carService.findByCarId(id);
+		if(opt.isPresent()) {
+			return new ResponseEntity<Car>(opt.get(), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Car>(new Car(), HttpStatus.OK);
+		}
 	}
 	
 	/*
