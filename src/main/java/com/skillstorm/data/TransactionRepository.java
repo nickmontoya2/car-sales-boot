@@ -15,3 +15,5 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
 	List<Transaction> findByUserId(int id);
 
 }
+
+// tx.id, tx.price, tx.date, tx.car.id, tx.buyer.id, tx.seller.id

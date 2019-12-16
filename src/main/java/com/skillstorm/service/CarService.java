@@ -1,6 +1,7 @@
 package com.skillstorm.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,11 @@ public class CarService {
 	public List<Car> findByUserId(int id) {
 		log.info("Finding all cars for userId: " + id);
 		return carRepository.findByOwnerId(id);
+	}
+	
+	public Optional<Car> findByCarId(int id) {
+		log.info("Finding specific car with id: " + id);
+		return carRepository.findById(id);
 	}
 	
 	public Car save(Car car) {
