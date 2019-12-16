@@ -7,26 +7,51 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skillstorm.beans.Car;
+import com.skillstorm.beans.Transaction;
 import com.skillstorm.data.CarRepository;
+import com.skillstorm.data.TransactionRepository;
 
 @Service
 public class CarService {
 	
 	private static final Logger log = Logger.getLogger(CarService.class);
-
-	// Autowire the appropriate repository(s) here
 	
 	@Autowired
 	private CarRepository carRepository;
+	@Autowired
+	private TransactionRepository transactionRepository;
+
 	
-	public List<Car> findAll() {
-		log.info("Find all cars");
-		return carRepository.findAll();
+	public List<Car> findAllForSale() {
+		log.info("Find all cars that are for sale");
+		return carRepository.findCars();
 	}
 	
 	public List<Car> findByUserId(int id) {
 		log.info("Finding all cars for userId: " + id);
 		return carRepository.findByOwnerId(id);
 	}
+	
+	public Car save(Car car) {
+		log.info("Saving new car");
+		// if new car doesn't have any transactions built in
+		if (car.getTransactions() == null || car.getTransactions().isEmpty()) {
+			return carRepository.save(car);
+		} else { // if new car has transactions make sure to save them 
+			log.info("Saving transactions associate with new car");
+			Car result = carRepository.save(car);
+			
+			for(Transaction tx : car.getTransactions()) {
+				transactionRepository.save(tx);
+			}
+			return result;
+		}
+	} // End save()
+
+	public void remove(Car car) {
+		log.info("Deleting car");
+		// make sure car is valid
+		carRepository.delete(car);
+	} // remove()
 	
 }

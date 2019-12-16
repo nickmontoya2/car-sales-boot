@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -48,11 +49,11 @@ public class User {
 	 *  relating teams to matches played as home or away
 	 */
 	
-	@OneToMany(mappedBy = "buyer")
+	@OneToMany(mappedBy = "buyer", fetch = FetchType.EAGER)
 	@JsonManagedReference(value = "user-buyer")
 	private Set<Transaction> buyerTransactions;
 	
-	@OneToMany(mappedBy = "seller")
+	@OneToMany(mappedBy = "seller", fetch = FetchType.EAGER)
 	@JsonManagedReference(value = "user-seller")
 	private Set<Transaction> sellerTransactions;
 	

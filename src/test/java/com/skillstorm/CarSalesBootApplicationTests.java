@@ -22,8 +22,12 @@ class CarSalesBootApplicationTests {
 	
 	@Test
 	void contextLoads() {
+		log.info("IN TEST CASE");
 		List<Car> cars = repo.findByOwnerId(2);
 		log.info(cars);
+		for (Car car : cars) {
+			log.info(car.getOwner());
+		}
 		assertEquals(1, cars.size());
 	}
 

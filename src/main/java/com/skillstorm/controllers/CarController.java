@@ -2,11 +2,19 @@ package com.skillstorm.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,20 +28,39 @@ public class CarController {
 	@Autowired
 	private CarService carService;
 	
-	// Method to return all cars in DB
-	@GetMapping
-	public ResponseEntity<List<Car>> findAll() {
-		// Call service method to return all cars here
-		return new ResponseEntity<List<Car>>(carService.findAll(), HttpStatus.OK);
+	/*
+	 * Method to return all cars in DB
+	 * Change this to only find cars for sale
+	 */
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Car>> findAllForSale() {
+		return new ResponseEntity<List<Car>>(carService.findAllForSale(), HttpStatus.OK);
 	}
 	
 	/*
 	 * Return all cars for specific user.
 	 * Change this to get {id} from session so userId isn't visible
-	 * 
 	 */
-	@GetMapping(value = "/user/{id}")
+	@GetMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Car>> findByUserId(@PathVariable int id) {
 		return new ResponseEntity<List<Car>>(carService.findByUserId(id), HttpStatus.OK);
+	}
+	
+	/*
+	 * Allows user to add a new car to the database
+	 */
+	@PostMapping(value = "/car", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(propagation = Propagation.REQUIRES_NEW) // Create new transaction for this method
+	public ResponseEntity<Car> create(@Valid @RequestBody Car car) {
+		return new ResponseEntity<Car>(carService.save(car), HttpStatus.CREATED);
+	}
+	
+	/*
+	 * Allows user to remove one of their cars from the database
+	 */
+	@DeleteMapping(value = "/remove/", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Car> remove(@Valid @RequestBody Car car) {
+		carService.remove(car);
+		return new ResponseEntity<Car>(HttpStatus.OK);
 	}
 }

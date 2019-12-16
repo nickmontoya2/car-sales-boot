@@ -37,12 +37,12 @@ public class Transaction {
 	@JsonBackReference(value = "car-transactions")
 	private Car car;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_ID_BUYER")
 	@JsonBackReference(value = "user-buyer")
 	private User buyer;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_ID_SELLER")
 	@JsonBackReference(value = "user-seller")
 	private User seller;
