@@ -17,7 +17,6 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
 	
 	public List<Car> findByOwnerId(int id);
 	
-	// update the for sale status of a car
 	@Modifying
 	@Query("update Car set status = ?1 where id = ?2")
 	public void updateCarStatus(String status, int id);
