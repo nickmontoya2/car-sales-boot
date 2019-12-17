@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "CAR")
@@ -28,6 +29,7 @@ public class Car {
 	@Id
 	@Column(name = "CAR_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonProperty("carId")
 	private int id;
 	
 	@Column(name = "MAKE")
