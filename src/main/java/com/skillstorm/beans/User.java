@@ -36,7 +36,7 @@ public class User {
 	private String username;
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
-	@Transient
+//	@Transient
 	@Column(name = "PASSWORD")
 	private String password;
 	
