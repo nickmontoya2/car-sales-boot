@@ -15,9 +15,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "USER")
@@ -27,6 +29,7 @@ public class User {
 	@Id
 	@Column(name = "USER_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonProperty("userId")
 	private int id;
 	
 	@Column(name = "NAME")
@@ -44,7 +47,8 @@ public class User {
 	private int balance;
 	
 	@OneToMany(mappedBy = "owner")
-	@JsonManagedReference(value = "user-cars")
+	// @JsonManagedReference(value = "user-cars")
+	@JsonIgnore
 	private List<Car> cars;
 	
 	/*
@@ -52,12 +56,14 @@ public class User {
 	 *  relating teams to matches played as home or away
 	 */
 	
-	@OneToMany(mappedBy = "buyer", fetch = FetchType.EAGER)
-	@JsonManagedReference(value = "user-buyer")
+	@OneToMany(mappedBy = "buyer", fetch = FetchType.LAZY)
+	//@JsonManagedReference(value = "user-buyer")
+	@JsonIgnore
 	private Set<Transaction> buyerTransactions;
 	
-	@OneToMany(mappedBy = "seller", fetch = FetchType.EAGER)
-	@JsonManagedReference(value = "user-seller")
+	@OneToMany(mappedBy = "seller", fetch = FetchType.LAZY)
+	//@JsonManagedReference(value = "user-seller")
+	@JsonIgnore
 	private Set<Transaction> sellerTransactions;
 	
 	public User() {
@@ -140,11 +146,11 @@ public class User {
 	}
 
 	// Make method to return list of all transactions
-	public Set<Transaction> getAllTransactions() {
-		Set<Transaction> allTransactions = new HashSet<Transaction>();
-		allTransactions.addAll(buyerTransactions);
-		allTransactions.addAll(sellerTransactions);
-		return allTransactions;
-	}
-	
+//	public Set<Transaction> getAllTransactions() {
+//		Set<Transaction> allTransactions = new HashSet<Transaction>();
+//		allTransactions.addAll(buyerTransactions);
+//		allTransactions.addAll(sellerTransactions);
+//		return allTransactions;
+//	}
+//	
 }

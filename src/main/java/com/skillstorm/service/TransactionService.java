@@ -21,5 +21,9 @@ public class TransactionService {
 		log.info("Finding all transactions involving userId: " + id);
 		return transactionRepository.findByUserId(id);
 	}
+
+	public List<Transaction> findAll() {
+		return transactionRepository.findAll();
+	}
 	
 }

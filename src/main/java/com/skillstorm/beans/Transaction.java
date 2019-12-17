@@ -32,19 +32,19 @@ public class Transaction {
 	@Temporal(TemporalType.DATE)
 	private Date date;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CAR_ID")
-	@JsonBackReference(value = "car-transactions")
+	// @JsonBackReference(value = "car-transactions")
 	private Car car;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_ID_BUYER")
-	@JsonBackReference(value = "user-buyer")
+	// @JsonBackReference(value = "user-buyer")
 	private User buyer;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_ID_SELLER")
-	@JsonBackReference(value = "user-seller")
+	// @JsonBackReference(value = "user-seller")
 	private User seller;
 
 	public Transaction() {

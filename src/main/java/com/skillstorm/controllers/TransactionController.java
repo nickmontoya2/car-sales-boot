@@ -30,6 +30,7 @@ public class TransactionController {
 	@GetMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Transaction>> findByUserId(@PathVariable int id) {
 		return new ResponseEntity<List<Transaction>>(transactionService.findByUserId(id), HttpStatus.OK);
+		//return new ResponseEntity<List<Transaction>>(transactionService.findAll(), HttpStatus.OK);
 	}
 	
 }

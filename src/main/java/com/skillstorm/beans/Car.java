@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -78,12 +79,13 @@ public class Car {
 	// User who owns this car
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_ID")
-	@JsonBackReference(value = "user-cars")
+	// @JsonBackReference(value = "user-cars")
 	private User owner;
 	
 	// List of transactions this car has been in
 	@OneToMany(mappedBy = "car")
-	@JsonManagedReference(value = "car-transactions")
+	// @JsonManagedReference(value = "car-transactions")
+	@JsonIgnore
 	private Set<Transaction> transactions;
 	
 	public Car() {
