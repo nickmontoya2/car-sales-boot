@@ -6,9 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,4 +43,17 @@ public class TransactionController {
 		return new ResponseEntity<List<Transaction>>(transactionService.findSalesByUserId(id), HttpStatus.OK);
 	}
 	
+	@PostMapping(value = "/purchase", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public ResponseEntity<Transaction> executePurchase(@RequestBody Transaction tx /* , HttpServletResponse response */) {
+
+		ResponseEntity<Transaction> transaction = new ResponseEntity<Transaction>(transactionService.purchase(tx), HttpStatus.OK);
+
+		if (!transaction.hasBody())
+			return new ResponseEntity<Transaction>(HttpStatus.BAD_REQUEST);
+		else
+			return new ResponseEntity<Transaction>(HttpStatus.OK);
+		
+		// can return transaction here if desired. See TransactionService
+	}
 }

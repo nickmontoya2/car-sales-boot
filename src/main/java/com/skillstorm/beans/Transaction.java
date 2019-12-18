@@ -1,7 +1,5 @@
 package com.skillstorm.beans;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,7 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
@@ -29,8 +26,7 @@ public class Transaction {
 	private int price;
 	
 	@Column(name = "TRANSACTION_DATE")
-	@Temporal(TemporalType.DATE)
-	private Date date;
+	private String date;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CAR_ID")
@@ -67,11 +63,11 @@ public class Transaction {
 		this.price = price;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
