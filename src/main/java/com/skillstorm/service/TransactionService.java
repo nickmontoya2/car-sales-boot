@@ -48,6 +48,9 @@ public class TransactionService {
 		int carId = tx.getCar().getId();
 		int price = tx.getPrice();
 		
+		log.info("Buyer id: " + buyerId);
+		log.info("Seller id: " + sellerId);
+		
 		// get todays date and add it to the transaction object to be saved as a string
 		Date now = new Date(); // java.util.Date, NOT java.sql.Date or java.sql.Timestamp!
 		String currentTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").format(now);

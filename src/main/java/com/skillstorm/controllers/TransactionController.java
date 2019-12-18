@@ -2,6 +2,9 @@ package com.skillstorm.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,6 +27,8 @@ import com.skillstorm.service.TransactionService;
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 public class TransactionController {
 
+	private static final Logger log = Logger.getLogger(TransactionController.class);
+	
 	@Autowired
 	private TransactionService transactionService;
 	
@@ -47,6 +52,9 @@ public class TransactionController {
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public ResponseEntity<Transaction> executePurchase(@RequestBody Transaction tx /* , HttpServletResponse response */) {
 
+		log.info("transaction: " + tx);
+		log.info("transaction buyer id: " + tx.getBuyer().getId());
+		
 		ResponseEntity<Transaction> transaction = new ResponseEntity<Transaction>(transactionService.purchase(tx), HttpStatus.OK);
 
 		if (!transaction.hasBody())
