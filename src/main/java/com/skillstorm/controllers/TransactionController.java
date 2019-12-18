@@ -24,13 +24,19 @@ public class TransactionController {
 	private TransactionService transactionService;
 	
 	/*
-	 * Return list of transactions for a user
-	 * Used to display all purchases & sales
+	 * Return list of purchases for a user
 	 */
-	@GetMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Transaction>> findByUserId(@PathVariable int id) {
-		return new ResponseEntity<List<Transaction>>(transactionService.findByUserId(id), HttpStatus.OK);
-		//return new ResponseEntity<List<Transaction>>(transactionService.findAll(), HttpStatus.OK);
+	@GetMapping(value = "/user-purchases/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Transaction>> findPurchasesByUserId(@PathVariable int id) {
+		return new ResponseEntity<List<Transaction>>(transactionService.findPurchasesByUserId(id), HttpStatus.OK);
+	}
+	
+	/*
+	 * Return list of sales for a user
+	 */
+	@GetMapping(value = "/user-sales/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Transaction>> findSalesByUserId(@PathVariable int id) {
+		return new ResponseEntity<List<Transaction>>(transactionService.findSalesByUserId(id), HttpStatus.OK);
 	}
 	
 }

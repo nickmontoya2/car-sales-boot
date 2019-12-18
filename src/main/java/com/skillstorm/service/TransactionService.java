@@ -17,11 +17,16 @@ public class TransactionService {
 	@Autowired
 	private TransactionRepository transactionRepository;
 	
-	public List<Transaction> findByUserId(int id) {
-		log.info("Finding all transactions involving userId: " + id);
-		return transactionRepository.findByUserId(id);
+	public List<Transaction> findPurchasesByUserId(int id) {
+		log.info("Finding all purchases by userId: " + id);
+		return transactionRepository.findPurchasesByUserId(id);
 	}
 
+	public List<Transaction> findSalesByUserId(int id) {
+		log.info("Finding all sales by userId: " + id);
+		return transactionRepository.findSalesByUserId(id);
+	}
+	
 	public List<Transaction> findAll() {
 		return transactionRepository.findAll();
 	}

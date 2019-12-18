@@ -11,8 +11,11 @@ import com.skillstorm.beans.Transaction;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Integer> {
 
-	@Query("select tx from Transaction tx where tx.buyer.id = ?1 or tx.seller.id = ?1")
-	List<Transaction> findByUserId(int id);
+	@Query("select tx from Transaction tx where tx.buyer.id = ?1")
+	List<Transaction> findPurchasesByUserId(int id);
+
+	@Query("select tx from Transaction tx where tx.seller.id = ?1")
+	List<Transaction> findSalesByUserId(int id);
 
 }
 
