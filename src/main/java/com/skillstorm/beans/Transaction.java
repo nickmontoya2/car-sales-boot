@@ -29,7 +29,7 @@ public class Transaction {
 	@Column(name = "TRANSACTION_DATE")
 	private String date;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "CAR_ID")
 	// @JsonBackReference(value = "car-transactions")
 	private Car car;
