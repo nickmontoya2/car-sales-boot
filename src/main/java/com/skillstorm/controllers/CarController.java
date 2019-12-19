@@ -84,9 +84,9 @@ public class CarController {
 		return new ResponseEntity<Car>(HttpStatus.OK);
 	}
 	
-	@PutMapping(value = "/car/update/{id}/{status}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/car/update/{id}/{status}")
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public ResponseEntity<Car> update(@Valid @PathVariable int id, @Valid @PathVariable String status) {
+	public ResponseEntity<Car> update(@PathVariable int id, @PathVariable String status) {
 
 		if(!repository.existsById(id)) {
 			return new ResponseEntity<Car>(HttpStatus.BAD_REQUEST);
