@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skillstorm.beans.Car;
+import com.skillstorm.beans.SalesStatus;
 import com.skillstorm.beans.Transaction;
 import com.skillstorm.data.CarRepository;
 import com.skillstorm.data.TransactionRepository;
@@ -62,14 +63,19 @@ public class CarService {
 		}
 	} // End save()
 
-	public void remove(Car car) {
+	public void remove(int id) {
 		log.info("Deleting car");
-		// make sure car is valid
+		Car car = carRepository.findById(id).get();
 		carRepository.delete(car);
 	} // remove()
 
 	public void setNewCarStatus(String status, int id) {
-		carRepository.updateCarStatus(status, id);
+		if (status.equals("FOR_SALE")) {
+			carRepository.updateCarStatus(SalesStatus.FOR_SALE, id);
+		} else {
+			carRepository.updateCarStatus(SalesStatus.NOT_FOR_SALE, id);
+		}
+		
 	}
 	
 }

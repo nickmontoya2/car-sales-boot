@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.skillstorm.beans.Car;
+import com.skillstorm.beans.SalesStatus;
 
 @Repository
 public interface CarRepository extends JpaRepository<Car, Integer> {
@@ -18,10 +19,11 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
 	public List<Car> findByOwnerId(int id);
 	
 	@Modifying
-	@Query("update Car set status = ?1 where id = ?2")
-	public void updateCarStatus(String status, int id);
+	@Query("update Car set saleStatus = ?1 where id = ?2")
+	public void updateCarStatus(SalesStatus status, int id);
 	
 	@Modifying
 	@Query("update Car set USER_ID = ?1 where id = ?2")
 	public void updateOwner(int buyerId, int carId);
+
 }
