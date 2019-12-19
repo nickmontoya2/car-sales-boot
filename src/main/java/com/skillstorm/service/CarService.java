@@ -54,9 +54,9 @@ public class CarService {
 		}
 	} // End save()
 
-	public void remove(Car car) {
+	public void remove(int id) {
 		log.info("Deleting car");
-		// make sure car is valid
+		Car car = carRepository.findById(id).get();
 		carRepository.delete(car);
 	} // remove()
 

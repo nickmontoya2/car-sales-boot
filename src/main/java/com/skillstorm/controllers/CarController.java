@@ -78,9 +78,9 @@ public class CarController {
 	/*
 	 * Allows user to remove one of their cars from the database
 	 */
-	@DeleteMapping(value = "/remove/", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Car> remove(@Valid @RequestBody Car car) {
-		carService.remove(car);
+	@DeleteMapping(value = "/remove/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Car> remove(@PathVariable int id) {
+		carService.remove(id);
 		return new ResponseEntity<Car>(HttpStatus.OK);
 	}
 	

@@ -24,4 +24,5 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
 	@Modifying
 	@Query("update Car set USER_ID = ?1 where id = ?2")
 	public void updateOwner(int buyerId, int carId);
+
 }
