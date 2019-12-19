@@ -11,6 +11,7 @@ import com.skillstorm.beans.Car;
 import com.skillstorm.beans.Transaction;
 import com.skillstorm.data.CarRepository;
 import com.skillstorm.data.TransactionRepository;
+import com.skillstorm.data.UserRepository;
 
 @Service
 public class CarService {
@@ -21,6 +22,8 @@ public class CarService {
 	private CarRepository carRepository;
 	@Autowired
 	private TransactionRepository transactionRepository;
+	@Autowired
+	private UserRepository userRepository;
 
 	
 	public List<Car> findAllForSale() {
@@ -40,6 +43,11 @@ public class CarService {
 	
 	public Car save(Car car) {
 		log.info("Saving new car");
+		log.info(car.getOwner().getId());
+		car.setOwner(userRepository.findById(car.getOwner().getId()).get());
+		log.info(car.getOwner());
+		
+		
 		// if new car doesn't have any transactions built in
 		if (car.getTransactions() == null || car.getTransactions().isEmpty()) {
 			return carRepository.save(car);
