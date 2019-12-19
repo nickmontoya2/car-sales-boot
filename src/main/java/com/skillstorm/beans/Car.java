@@ -3,6 +3,7 @@ package com.skillstorm.beans;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -83,7 +84,7 @@ public class Car {
 	private User owner;
 	
 	// List of transactions this car has been in
-	@OneToMany(mappedBy = "car")
+	@OneToMany(mappedBy = "car", cascade = CascadeType.REMOVE)
 	// @JsonManagedReference(value = "car-transactions")
 	@JsonIgnore
 	private Set<Transaction> transactions;

@@ -1,0 +1,13 @@
+# configuration to run on the Cloud
+spring:
+  datasource:
+    username: dan
+    password: dan
+    url: jdc:mysql://@your-aws.instance.amazon.com:3306/cars 
+    driver-class-name: com.mysql.cj.Driver
+  jpa:
+    generate-ddl: true
+  application:
+    name: cars
+
+    
